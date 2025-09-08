@@ -19,7 +19,7 @@
 
 - **Automated News Discovery**: Uses [Bright Data's SERP API](https://brightdata.com/products/serp-api) to find Google News pages for your brand queries.
 - **Intelligent Content Extraction**: Scrapes news articles at scale using [Bright Data's Web Unlocker API](https://brightdata.com/products/web-unlocker) with parallel processing.
-- **AI-Powered Analysis**: Leverages OpenAI GPT-4o-mini to analyze sentiment, extract insights, and identify the most relevant news for brand monitoring.
+- **AI-Powered Analysis**: Leverages OpenAI GPT-5-mini to analyze sentiment, extract insights, and identify the most relevant news for brand monitoring.
 - **Smart Content Filtering**: Automatically selects the top news articles most relevant to your brand reputation.
 - **Professional Email Reports**: Generates beautifully formatted HTML email reports with sentiment analysis and actionable insights.
 - **Automated Delivery**: Sends branded monitoring reports directly to stakeholders via SendGrid.
@@ -200,7 +200,7 @@ This workflow leverages powerful APIs through the Bright Data SDK:
 
 - **[Bright Data SERP API](https://brightdata.com/products/serp-api)**: For discovering Google News URLs from search results
 - **[Bright Data Web Unlocker API](https://brightdata.com/products/web-unlocker)**: For parallel content extraction in LLM-optimized Markdown format
-- **OpenAI GPT-4o-mini**: For content analysis and HTML report generation
+- **OpenAI GPT-5-mini**: For content analysis and HTML report generation
 - **SendGrid Email API**: For professional report delivery
 
 ---
