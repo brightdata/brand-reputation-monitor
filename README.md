@@ -53,7 +53,7 @@
 
 1. Clone this repository:
 ```
-    git clone https://github.com/brightdata/brand-reputation-monitoring-workflow
+    git clone https://github.com/brightdata/brand-reputation-monitor
     cd brand-reputation-monitoring-workflow
 ```
 2. Create and activate a virtual environment:
