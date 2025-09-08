@@ -51,26 +51,26 @@
 ## Installation ⚙️
 
 1. Clone this repository:
-
+```
     git clone https://github.com/brightdata/brand-reputation-monitoring-workflow
     cd brand-reputation-monitoring-workflow
-
+```
 2. Install dependencies:
-
+```
     pip install -r requirements.txt
-
+```
 3. Create a `.env` file in the project root with your API keys:
-
+```
     BRIGHT_DATA_API_TOKEN=your_bright_data_api_token
     OPENAI_API_KEY=your_openai_api_key
     SENDGRID_API_KEY=your_sendgrid_api_key
-
+```
 ---
 
 ## Configuration 📝
 
 Create a `config.json` in the root directory to customize your brand monitoring:
-
+```
     {
       "search_queries": [
         "YourBrand news",
@@ -86,7 +86,7 @@ Create a `config.json` in the root directory to customize your brand monitoring:
         "ceo@yourcompany.com"
       ]
     }
-
+```
 **Configuration Fields:**
 
 - `search_queries`: List of search terms to monitor your brand (supports multiple queries)
@@ -150,7 +150,7 @@ Each automated report includes:
 
 ### Custom Search Parameters
 Modify search queries for different monitoring scenarios:
-
+```
     {
       "search_queries": [
         "\"YourBrand\" competitor analysis",
@@ -159,13 +159,13 @@ Modify search queries for different monitoring scenarios:
         "YourBrand product launch"
       ]
     }
-
+```
 ### Scheduling Automation
 Set up automated monitoring with cron jobs:
-
+```
     # Run every Monday at 9 AM
     0 9 * * 1 /usr/bin/python3 /path/to/your/project/main.py
-
+```
 ### Custom Analysis Prompts
 Fine-tune the AI analysis by modifying the system prompts in the `process_news_list()` function for industry-specific insights.
 
