@@ -22,7 +22,7 @@
 - **AI-Powered Analysis**: Leverages OpenAI GPT-5-mini to analyze sentiment, extract insights, and identify the most relevant news for brand monitoring.
 - **Smart Content Filtering**: Automatically selects the top news articles most relevant to your brand reputation.
 - **Professional Email Reports**: Generates beautifully formatted HTML email reports with sentiment analysis and actionable insights.
-- **Automated Delivery**: Sends branded monitoring reports directly to stakeholders via SendGrid.
+- **Automated Delivery**: Sends monitoring reports directly to stakeholders via SendGrid.
 - **Configurable Monitoring**: Easy-to-customize search queries and recipient lists through JSON configuration.
 
 ---
@@ -31,7 +31,7 @@
 
 1. **Configuration Loading**: Reads your monitoring setup from `config.json`
 2. **News Discovery**: Searches Google SERPs using your brand queries to find Google News page URLs
-3. **Content Extraction**: Scrapes all relevant news pages in parallel and returns Markdown content
+3. **Content Extraction**: Scrapes all relevant news pages in parallel and gets Markdown content
 4. **Content Selection**: AI identifies the most important news articles from the scraped pages
 5. **Individual Article Scraping**: Scrapes each selected news article for detailed content
 6. **Detailed Analysis**: Each article gets sentiment analysis and brand insights
@@ -45,74 +45,93 @@
 - Python 3.8+ 🐍
 - [Bright Data API token](https://docs.brightdata.com/api-reference/authentication) 🔑
 - OpenAI API key 🔑
-- SendGrid API key 📧
+- SendGrid API key 🔑
 
 ---
 
 ## Installation ⚙️
 
 1. Clone this repository:
-```
-    git clone https://github.com/brightdata/brand-reputation-monitor
-    cd brand-reputation-monitoring-workflow
-```
+   ```bash
+   git clone https://github.com/brightdata/brand-reputation-monitoring-workflow
+   cd brand-reputation-monitoring-workflow
+   ```
 2. Create and activate a virtual environment:
-```
-    python -m venv .venv
-    
-    # On Linux/macOS:
-    source .venv/bin/activate
-    
-    # On Windows:
-    .venv\Scripts\activate
-```
+   ```
+   python -m venv .venv
+   ```
+   On Linux/macOS, activate it with:
+   ```bash
+   source .venv/bin/activate
+   ```
+   On Windows, run:
+   ```bash
+   .venv\Scripts\activate
+   ```
 3. Install dependencies:
-```
-    pip install python-dotenv brightdata-sdk openai sendgrid pydantic
-```
+   ```
+   pip install python-dotenv brightdata-sdk openai sendgrid pydantic
+   ```
 4. Create a `.env` file in the project root with your API keys:
-```
-    BRIGHT_DATA_API_TOKEN=your_bright_data_api_token
-    OPENAI_API_KEY=your_openai_api_key
-    SENDGRID_API_KEY=your_sendgrid_api_key
-```
+   ```
+   BRIGHT_DATA_API_TOKEN=your_bright_data_api_token
+   OPENAI_API_KEY=your_openai_api_key
+   SENDGRID_API_KEY=your_sendgrid_api_key
+   ```
+
 ---
 
 ## Configuration 📝
 
-Create a `config.json` in the root directory to customize your brand monitoring:
+Create a `config.json` in the root directory to customize the brand monitoring workflow:
+
+```json
+{
+  "search_queries": [
+    "your_brand news",
+    "your_brand reviews",
+    "your_brand controversy",
+    "your_company announcement"
+  ],
+  "num_news": 5,
+  "sender": "monitoring@yourcompany.com",
+  "recipients": [
+    "pr@yourcompany.com",
+    "marketing@yourcompany.com",
+    "ceo@yourcompany.com"
+  ]
+}
 ```
-    {
-      "search_queries": [
-        "YourBrand news",
-        "YourBrand reviews",
-        "YourBrand controversy",
-        "YourCompany announcement"
-      ],
-      "num_news": 5,
-      "sender": "monitoring@yourcompany.com",
-      "recipients": [
-        "pr@yourcompany.com",
-        "marketing@yourcompany.com",
-        "ceo@yourcompany.com"
-      ]
-    }
-```
-**Configuration Fields:**
+
+**Configuration Fields**:
 
 - `search_queries`: List of search terms to monitor your brand (supports multiple queries)
-- `num_news`: Number of top articles to analyze in detail (default: 5)
+- `num_news`: Number of top articles to analyze in detail (default: `5`)
 - `sender`: Email address to send reports from (must be verified in SendGrid)
 - `recipients`: List of email addresses to receive monitoring reports
 
 ---
 
+## Project Structure 📁
+
+```
+brand-reputation-monitoring-workflow/
+├── .venv/
+├── .env
+├── config.json
+└── workflow.py
+```
+
+---
+
 ## Usage ▶️
 
-Run the brand monitoring workflow:
+Run the brand monitoring workflow with:
+
 ```
-    python workflow.py
+python workflow.py
 ```
+
 The workflow will:
 
 1. 🔍 Search Google SERPs for your configured queries and extract Google News URLs
@@ -123,33 +142,35 @@ The workflow will:
 6. 📧 Send a professional HTML report to your team
 
 **Sample Output:**
+
 ```
-    Retrieving Google News page URLs for the following search queries: nike, nike shoes
-    2 Google News page URL(s) retrieved!
+Retrieving Google News page URLs for the following search queries: nike, nike shoes
+2 Google News page URL(s) retrieved!
 
-    Scraping content from each Google News page...
-    Google News pages scraped!
+Scraping content from each Google News page...
+Google News pages scraped!
 
-    Extracting the most relevant news URLs...
-    5 news articles found:
-    - https://www.espn.com/wnba/story/_/id/46075454/caitlin-clark-becomes-nike-newest-signature-athlete
-    - https://wwd.com/footwear-news/sneaker-news/nike-acg-radical-airflow-ultrafly-release-dates-1238068936/
-    - https://www.runnersworld.com/news/a65881486/cooper-lutkenhaus-professional-contract-nike/
-    - https://hypebeast.com/2025/8/nike-kobe-3-protro-low-reveal-info
-    - https://wwd.com/footwear-news/sneaker-news/nike-air-diamond-turf-must-be-the-money-release-date-1238075256/
+Extracting the most relevant news URLs...
+5 news articles found:
+- https://www.espn.com/wnba/story/_/id/46075454/caitlin-clark-becomes-nike-newest-signature-athlete
+- https://wwd.com/footwear-news/sneaker-news/nike-acg-radical-airflow-ultrafly-release-dates-1238068936/
+- https://www.runnersworld.com/news/a65881486/cooper-lutkenhaus-professional-contract-nike/
+- https://hypebeast.com/2025/8/nike-kobe-3-protro-low-reveal-info
+- https://wwd.com/footwear-news/sneaker-news/nike-air-diamond-turf-must-be-the-money-release-date-1238075256/
 
-    Scraping the selected news articles...
-    5 news articles scraped!
+Scraping the selected news articles...
+5 news articles scraped!
 
-    Analyzing each news for brand reputation monitoring...
-    News analysis complete!
+Analyzing each news for brand reputation monitoring...
+News analysis complete!
 
-    Generating HTML email body...
-    HTML email body generated!
+Generating HTML email body...
+HTML email body generated!
 
-    Sending the email with the brand reputation monitoring HTML report...
-    Email sent!
+Sending the email with the brand reputation monitoring HTML report...
+Email sent!
 ```
+
 ---
 
 ## Email Report Features 📊
@@ -167,29 +188,26 @@ Each automated report includes:
 ## Advanced Configuration 🧑‍💻
 
 ### Custom Search Parameters
-Modify search queries for different monitoring scenarios:
-```
-    {
-      "search_queries": [
-        "\"YourBrand\" competitor analysis",
-        "YourBrand customer complaints",
-        "YourBrand industry leadership",
-        "YourBrand product launch"
-      ]
-    }
-```
+
+Modify search queries for different monitoring scenarios, as well as configure senders, recipients, and the number of news items in `config.json`.
+
 ### Scheduling Automation
+
 Set up automated monitoring with cron jobs:
 
-    # Run every Monday at 9 AM
-    0 9 * * 1 /usr/bin/python3 /path/to/your/project/workflow.py
+```bash
+# Run every Monday at 9 AM
+0 9 * * 1 /usr/bin/python3 /path/to/your/project/workflow.py
+```
 
 ### Custom Analysis Prompts
+
 Fine-tune the AI analysis by modifying the system prompts in the `process_news_list()` function for industry-specific insights.
 
 ### Next Steps & Enhancements
+
 - **Add memory layer**: Avoid analyzing the same articles multiple times
-- **SendGrid templating**: Use consistent email templates for standardized reports  
+- **SendGrid templating**: Use consistent email templates for standardized reports
 - **Cloud storage**: Archive reports in S3 for historical analysis
 
 ---
@@ -209,10 +227,8 @@ This workflow leverages powerful APIs through the Bright Data SDK:
 
 - **API Keys**: Ensure all API keys are correctly set in your `.env` file
 - **Email Verification**: Sender email must be verified in SendGrid dashboard
-- **Rate Limits**: The workflow includes built-in handling for API rate limits
 - **Search Queries**: Use specific brand terms and variations for comprehensive monitoring
 - **Content Quality**: More specific queries yield better analysis results
-- **Recipient Limits**: SendGrid free tier supports up to 100 emails per day
 
 ### Common Issues:
 
@@ -223,20 +239,10 @@ This workflow leverages powerful APIs through the Bright Data SDK:
 
 ---
 
-## Project Structure 📁
-```
-    brand-reputation-monitoring-workflow/
-    ├── .venv/
-    ├── .env
-    ├── config.json
-    └── workflow.py
-```
----
-
 ## Use Cases 🎯
 
 - **Crisis Management**: Early detection of negative brand mentions
-- **Competitive Intelligence**: Monitor competitor news and market positioning  
+- **Competitive Intelligence**: Monitor competitor news and market positioning
 - **PR Campaign Tracking**: Measure coverage and sentiment of marketing initiatives
 - **Product Launch Monitoring**: Track reception and feedback on new releases
 - **Executive Briefings**: Regular brand health reports for leadership teams
